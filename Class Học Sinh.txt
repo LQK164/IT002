@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+private:
+    string hoten;
+    float diemtoan;
+    float diemvan;
+public:
+    void setName() {
+        getline(cin, this->hoten);
+    }
+
+    void setScore() {
+        do {
+            cin >> this->diemtoan >> this->diemvan;
+        } while ((this->diemtoan < 0 || this->diemtoan > 10) || (this->diemvan < 0 || this->diemvan > 10));
+    }
+
+    void display() {
+        cout << "Thong tin hoc sinh:" << endl;
+        cout << "Ho ten: " << hoten << endl;
+        cout << "Diem toan: " << diemtoan << endl;
+        cout << "Diem van: " << diemvan << endl;
+        cout << "Diem trung binh: " << (diemtoan + diemvan) / 2;
+    }
+};
+
+int main() {
+    Student hocsinh;
+    hocsinh.setName();
+    hocsinh.setScore();
+    hocsinh.display();
+    return 0;
+}
+

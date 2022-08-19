@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cmath>
+#define PI 3.14
+using namespace std;
+
+class DIEM{
+private:
+    float HoanhDo;
+    float TungDo;
+public:
+    void Nhap();
+    void Xuat();
+    float KhoangCach(DIEM);
+    void TinhTien(float,float);
+};
+
+void DIEM::Nhap(){
+    cin>>HoanhDo>>TungDo;
+}
+
+void DIEM::Xuat(){
+    cout<<'('<<HoanhDo<<','<<TungDo<<')'<<endl;
+}
+
+float DIEM::KhoangCach(DIEM diem){
+    return sqrt((double)pow(diem.HoanhDo-HoanhDo,2)+pow((double)diem.TungDo-TungDo,2));
+}
+
+void DIEM::TinhTien(float goc,float do_tinh_tien){
+    HoanhDo+=do_tinh_tien*cos((goc*PI)/180);
+    TungDo+=do_tinh_tien*sin((goc*PI)/180);
+}
+
+class TAMGIAC{
+private:
+    DIEM A,B,C;
+public:
+    void NhapTamGiac();
+    void XuatTamGiac();
+};
+
+void TAMGIAC::NhapTamGiac(){
+    A.Nhap();
+    B.Nhap();
+    C.Nhap();
+    float goc,do_tinh_tien;
+    cin>>goc>>do_tinh_tien;
+    A.TinhTien(goc,do_tinh_tien);
+    B.TinhTien(goc,do_tinh_tien);
+    C.TinhTien(goc,do_tinh_tien);
+}
+
+void TAMGIAC::XuatTamGiac(){
+    A.Xuat();
+    B.Xuat();
+    C.Xuat();
+}
+
+int main(){
+    TAMGIAC ABC;
+    ABC.NhapTamGiac();
+    ABC.XuatTamGiac();
+    return 0;
+}

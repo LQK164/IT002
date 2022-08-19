@@ -1,0 +1,58 @@
+#include <iostream>
+#define MAX 100
+using namespace std;
+
+class DIEM{
+private:
+    float HoanhDo;
+    float TungDo;
+public:
+    void Nhap();
+    void Xuat();
+    void NhanDoi();
+    void GanVeToaDo();
+    void TinhTien(int,float);
+};
+
+void DIEM::Nhap(){
+    cin>>HoanhDo>>TungDo;
+}
+
+void DIEM::NhanDoi(){
+    HoanhDo*=2;
+    TungDo*=2;
+}
+
+void DIEM::GanVeToaDo(){
+    HoanhDo=0;
+    TungDo=0;
+}
+
+void DIEM::TinhTien(int t, float d){
+    if(t==0) HoanhDo+=d;
+    else TungDo+=d;
+}
+
+void DIEM::Xuat(){
+    cout<<'('<<HoanhDo<<','<<TungDo<<')';
+}
+
+int main(){
+    DIEM diem;
+    diem.Nhap();
+    int GiaTriX[MAX],n,huong_tinh_tien;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>GiaTriX[i];
+        if(GiaTriX[i]==1) diem.NhanDoi();
+            else if(GiaTriX[i]==2) diem.GanVeToaDo();
+                else if(GiaTriX[i]==3){
+                    cin>>huong_tinh_tien;
+                    float d;
+                    cin>>d;
+                    diem.TinhTien(huong_tinh_tien,d);
+                }
+    }
+    diem.Xuat();
+    return 0;
+}

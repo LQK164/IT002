@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+class PhanSo {
+private:
+    int tuso;
+    int mauso;
+public:
+    void nhap() {
+        do {
+            cin >> tuso >> mauso;
+        } while (mauso == 0);
+    }
+
+    void xuat() {
+        cout << tuso << "/" << mauso << endl;
+    }
+    double GiaTriPhanSo() {
+        return double(tuso) / mauso;
+    }
+};
+
+void nhap(PhanSo a[], int &n) {
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        a[i].nhap();
+    }
+}
+
+void TimMaxMin(PhanSo a[], int n) {
+    int vtmin = 0, vtmax = 0;
+    for (int i = 1; i < n; i++)
+        if (a[i].GiaTriPhanSo() < a[vtmin].GiaTriPhanSo()) vtmin = i;
+    for (int i = 1; i < n; i++)
+        if (a[i].GiaTriPhanSo() > a[vtmax].GiaTriPhanSo()) vtmax = i;
+    a[vtmin].xuat();
+    a[vtmax].xuat();
+}
+
+int main() {
+    PhanSo a[100];
+    int n;
+    nhap(a, n);
+    TimMaxMin(a, n);
+    return 0;
+}

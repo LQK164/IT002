@@ -1,0 +1,115 @@
+#include <iostream>
+#define MAX 100
+using namespace std;
+
+class DATHUC{
+private:
+    int heso[MAX];
+    int bac;
+public:
+    DATHUC(){}
+    void Nhap();
+    void Xuat();
+    DATHUC operator + (DATHUC);
+    DATHUC operator - (DATHUC);
+    DATHUC operator * (DATHUC);
+};
+
+void DATHUC::Nhap(){
+    do{
+        cin >> bac;
+    }while(bac < 0);
+    for(int i=0; i<=bac; i++)
+        cin >> heso[i];
+}
+
+DATHUC DATHUC :: operator + (DATHUC dt){
+    DATHUC kq;
+    kq.bac = -1;
+    if(bac > dt.bac){
+        for(int i=0; i<=dt.bac; i++){
+            kq.heso[i] = heso[i]+dt.heso[i];
+            kq.bac++;
+        }
+        for(int i=dt.bac+1; i<=bac; i++){
+            kq.heso[i] = heso[i];
+            kq.bac++;
+        }
+    }
+    else{
+        for(int i=0; i<=bac; i++){
+            kq.heso[i] = heso[i] + dt.heso[i];
+            kq.bac++;
+        }
+        for(int i=bac+1; i<=dt.bac; i++){
+            kq.heso[i] = dt.heso[i];
+            kq.bac++;
+        }
+    }
+    return kq;
+}
+
+DATHUC DATHUC::operator - (DATHUC dt){
+    DATHUC kq;
+    kq.bac = -1;
+    if(bac > dt.bac){
+        for(int i=0; i<=dt.bac; i++){
+            kq.heso[i]= heso[i] - dt.heso[i];
+            kq.bac++;
+        }
+        for(int i=dt.bac+1; i<=bac; i++){
+            kq.heso[i] = heso[i];
+            kq.bac++;
+        }
+    }
+    else{
+        for(int i=0;i<=bac;i++){
+            kq.heso[i]=heso[i]-dt.heso[i];
+            kq.bac++;
+        }
+        for(int i=bac+1;i<=dt.bac;i++){
+            kq.heso[i]=-dt.heso[i];
+            kq.bac++;
+        }
+    }
+    return kq;
+}
+
+DATHUC DATHUC :: operator * (DATHUC dt){
+    DATHUC kq;
+    kq.bac = bac+dt.bac;
+    for(int i=0 ;i<=kq.bac; i++)
+        kq.heso[i] = 0;
+    for(int i=0; i<=kq.bac; i++)
+        for(int j=0; j<=bac; j++)
+            for(int k=0; k<=dt.bac; k++)
+                if(j + k == i)
+                    kq.heso[i] += heso[j] * dt.heso[k];
+    return kq;
+}
+
+void DATHUC::Xuat(){
+    for(int i=0;i<=bac;i++){
+        if(heso[i]==0) continue;
+        if(heso[i]>0){
+            if(i==0) cout<<heso[i]<<"x^0";
+            else cout<<'+'<<heso[i]<<"x^"<<i;
+        }
+        if(heso[i]<0) cout<<heso[i]<<"x^"<<i;
+    }
+}
+
+int main() {
+    DATHUC dt1,dt2,dathuc;
+    dt1.Nhap();
+    dt2.Nhap();
+    int a;
+    cin >> a;
+    if(a == 1) 
+        dathuc = dt1 + dt2;
+    else if(a == 2) 
+        dathuc = dt1 - dt2;
+    else dathuc = dt1 * dt2;
+    dathuc.Xuat();
+    return 0;
+}

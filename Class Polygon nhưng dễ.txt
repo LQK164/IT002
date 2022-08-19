@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+class point
+{
+    private:
+    float x,y;
+    public:
+    point(float _x=0, float _y=0): x(_x), y(_y) {};
+    float get_x() { return x;}
+    float get_y() { return y;}
+    void input();
+    void output();
+};
+
+void point::input()
+{
+    cin >> x >> y;
+}
+void point::output()
+{
+    cout << x << y;
+}
+
+class polygon
+{
+    private:
+    int total_point;
+    point * points;
+    public:
+    polygon(int _total = 0):total_point(_total) 
+    {
+        points = new point[total_point];
+    }
+    void input();
+    float area();
+};
+
+void polygon::input()
+{
+    for (int i = 0; i < total_point;i++)
+        points[i].input();
+}
+float polygon::area()
+{
+      float area = 0.0;
+    int j = total_point - 1;
+    for (int i = 0; i < total_point; i++)
+    {
+        area += (points[j].get_x() + points[i].get_x()) * (points[j].get_y() - points[i].get_y());
+        j = i;  
+    }
+    return abs(area / 2.0);
+}
+
+
+int main()
+{
+    int total;
+    cin >> total; 
+    polygon test(total);
+    test.input();
+    cout << test.area();
+}

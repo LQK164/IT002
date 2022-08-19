@@ -1,0 +1,95 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+class Clock{
+    private:
+        int hour;
+        int minute;
+        int second;
+    public:
+        void nhap();
+        void Tanglen1();
+        void Giamxuong1();
+        void Tanglenx(int);
+        void Giamxuongx(int);
+        void ChuanHoa();
+        void xuat();
+};
+void Clock::nhap(){
+    cin >> hour >> minute >> second;
+    if(hour < 0)    
+        hour =  abs(hour);
+    if(minute < 0) 
+        minute = abs(minute);
+    if(second < 0) 
+        second = abs(second);
+}
+void Clock::Tanglen1(){
+    second += 1;
+}
+void Clock::Giamxuong1(){
+    second -= 1;
+}
+void Clock::Tanglenx(int d){
+    second += d;
+}
+void Clock::Giamxuongx(int e){
+    second -= e;
+}
+void Clock::ChuanHoa(){
+    if(second < 0){
+        second += 60;
+        minute -= 1;
+    }
+    else if(minute < 0){
+        minute += 60;
+        hour -= 1;
+    }
+    else if(hour < 24) hour += 24;
+    if(second > 60){
+        minute += second/60;
+        second %= 60;
+        if(minute > 60){
+            hour += minute/60;
+            minute %= 60;
+            if (hour > 24) hour%=24;
+        }
+    }
+    else if(minute > 60){
+        hour += minute/60;
+        minute %= 60;
+        if(hour > 24) hour%=24; 
+    }
+    else if(hour > 24) hour%=24;
+}
+void Clock::xuat(){
+    cout << hour << "h " << minute << "p " << second << "s";
+}
+int main()
+{
+    Clock tg;
+    int n,x;
+    tg.nhap();
+    do{ 
+        cin >> n;
+        switch(n){
+            case 1: tg.Tanglen1();
+                break;
+            case 2: tg.Giamxuong1();
+                break;
+            case 3:{
+                cin >> x;
+                tg.Tanglenx(x);
+                break;
+            }
+            case 4:{
+                cin >> x;
+                tg.Giamxuongx(x);
+                break;
+            }
+        }
+    } while(n != -1);
+    tg.ChuanHoa();
+    tg.xuat();
+    return 0;
+}

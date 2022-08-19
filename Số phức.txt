@@ -1,0 +1,91 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class SoPhuc {
+private:
+    double thuc;
+    double ao;
+public:
+    void KhoiTaoSoPhuc(double, double);
+    double Modulo();
+    void nhap();
+    void xuat();
+    SoPhuc Cong(SoPhuc sp2);
+    SoPhuc Hieu(SoPhuc sp2);
+    SoPhuc Tich(SoPhuc sp2);
+    SoPhuc Thuong(SoPhuc sp2);
+};
+
+void SoPhuc::KhoiTaoSoPhuc(double thuc, double ao) {
+    this->thuc = thuc;
+    this->ao = ao;
+}
+
+double SoPhuc::Modulo() {
+    return sqrt(this->thuc * this->thuc + this->ao * this->ao);
+}
+
+void SoPhuc::nhap() {
+    cin >> this->thuc >> this->ao;
+}
+
+SoPhuc SoPhuc::Cong(SoPhuc sp2) {
+    SoPhuc sp;
+    sp.thuc = this->thuc + sp2.thuc;
+    sp.ao = this->ao + sp2.ao;
+    return sp;
+}
+
+SoPhuc SoPhuc::Hieu(SoPhuc sp2) {
+    SoPhuc sp;
+    sp.thuc = this->thuc - sp2.thuc;
+    sp.ao = this->ao - sp2.ao;
+    return sp;
+}
+
+SoPhuc SoPhuc::Tich(SoPhuc sp2) {
+    SoPhuc sp;
+    sp.thuc = this->thuc * sp2.thuc - this->ao * sp2.ao;
+    sp.ao = this->thuc * sp2.ao + this->ao * sp2.thuc;
+    return sp;
+}
+
+SoPhuc SoPhuc::Thuong(SoPhuc sp2) {
+    SoPhuc sp;
+    sp.thuc = (this->thuc * sp2.thuc + this->ao * sp2.ao) / (sp2.thuc * sp2.thuc + sp2.ao * sp2.ao);
+    sp.ao = (this->ao * sp2.thuc - this->thuc * sp2.ao) / (sp2.thuc * sp2.thuc + sp2.ao * sp2.ao);
+    return sp;
+}
+
+void SoPhuc::xuat() {
+    if (this->thuc == 0) {
+        if (this->ao < 0) cout << "- " << fabs(this->ao) << 'i' << endl;
+        else
+            if (this->ao == 0) cout << 0 << endl;
+            else cout << this->ao << 'i' << endl;
+    }
+    else {
+        if (this->ao < 0) cout << this->thuc << " - " << fabs(this->ao) << 'i' << endl;
+        else
+            if (this->ao == 0) cout << this->thuc << endl;
+            else cout << this->thuc << " + " << this->ao << 'i' << endl;
+    }
+}
+
+int main() {
+    SoPhuc sp1, sp2, sp3, sp4;
+    sp1.nhap();
+    sp2.nhap();
+    if (sp1.Modulo() == 0 || sp2.Modulo() == 0) cout << "ERROR";
+    else {
+        sp3.KhoiTaoSoPhuc(2, 0);
+        sp4.KhoiTaoSoPhuc(4, 0);
+        SoPhuc a = sp1.Cong(sp2);
+        SoPhuc b = sp2.Hieu(sp1.Tich(sp3));
+        SoPhuc c = sp1.Hieu(sp2.Tich(sp4));
+        SoPhuc kq = a.Tich(b.Thuong(c));
+        kq.xuat();
+    }
+    return 0;
+}
