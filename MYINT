@@ -1,0 +1,41 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+class MYINT{
+  private:  
+    int m;
+  public:
+    MYINT(int a){
+        m=a;
+    }
+    MYINT(){}
+    MYINT operator + (MYINT a);
+    MYINT operator * (MYINT a);
+    friend ostream& operator << (ostream& os, MYINT a);
+};
+MYINT MYINT::operator + ( MYINT x)
+{
+    MYINT c;
+    c.m = m-x.m;
+    return c;
+}
+MYINT MYINT:: operator * ( MYINT x)
+{
+    MYINT d;
+    d.m = m*x.m;
+    return d;
+}
+ostream& operator << (ostream& os, MYINT a)
+{
+    os << a.m;
+    return os;
+}
+int main() {
+    MYINT a(4), b(5);
+    cout << (a + b)*a << endl;
+    cout << a * b;
+    return 0;
+}
